@@ -12,10 +12,20 @@
 	<artifactId>autodealership</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>autodealership</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Demo project for Spring Boot using DynamoDB</description>
 	<properties>
 		<java.version>17</java.version>
+		<aws.java.sdk.version>2.16.1</aws.java.sdk.version>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>dynamodb-local</id>
+			<name>DynamoDB Local Release Repository</name>
+			<url>https://s3-us-west-2.amazonaws.com/dynamodb-local/release</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -27,7 +37,43 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>annotationProcessor</scope>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>dynamodb-enhanced</artifactId>
+			<version>2.12.0</version>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>dynamodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-testcontainers</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>software.amazon.awssdk</groupId>
+				<artifactId>bom</artifactId>
+				<version>2.16.29</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
