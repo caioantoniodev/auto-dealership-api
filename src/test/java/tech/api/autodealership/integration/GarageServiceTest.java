@@ -8,7 +8,7 @@ import tech.api.autodealership.entity.Garage;
 import tech.api.autodealership.mock.GarageMock;
 import tech.api.autodealership.service.GarageService;
 
-public class GarageServiceTest extends AbstractDynamoDbContainerTest {
+public class GarageServiceTest extends AbstractDynamoDbContainer {
 
     @Autowired
     private GarageService garageService;

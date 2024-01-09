@@ -2,7 +2,6 @@ package tech.api.autodealership.integration;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.Extension;
-import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -15,7 +14,7 @@ import tech.api.autodealership.Application;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public abstract class AbstractDynamoDbContainerTest implements Extension {
+public abstract class AbstractDynamoDbContainer implements Extension {
 
     static GenericContainer<?> dynamoDb = new GenericContainer<>(DockerImageName.parse("amazon/dynamodb-local:latest"))
             .withExposedPorts(8000)
@@ -24,7 +23,7 @@ public abstract class AbstractDynamoDbContainerTest implements Extension {
     @DynamicPropertySource
     static void dynamoDbProperties(DynamicPropertyRegistry registry) {
         registry.add("aws.dynamodb.uri",
-                () -> "http://" + dynamoDb.getContainerIpAddress() + ":" + dynamoDb.getFirstMappedPort());
+                () -> "http://" + dynamoDb.getHost() + ":" + dynamoDb.getFirstMappedPort());
         dynamoDb.start();
     }
 }
