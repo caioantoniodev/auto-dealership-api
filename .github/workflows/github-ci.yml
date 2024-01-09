@@ -34,4 +34,4 @@ jobs:
           cache: maven
 
       - name: Tests with Maven
-        run:  mvn clean test
+        run:  export AWS_SECRET_ACCESS_KEY=test && export AWS_ACCESS_KEY_ID=test && mvn clean test
