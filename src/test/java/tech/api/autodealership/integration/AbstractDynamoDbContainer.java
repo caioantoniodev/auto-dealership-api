@@ -22,8 +22,10 @@ public abstract class AbstractDynamoDbContainer implements Extension {
 
     @DynamicPropertySource
     static void dynamoDbProperties(DynamicPropertyRegistry registry) {
+
         registry.add("aws.dynamodb.uri",
-                () -> "http://" + dynamoDb.getHost() + ":" + dynamoDb.getFirstMappedPort());
+                () -> String.format("http://%s:%d", dynamoDb.getHost(), dynamoDb.getFirstMappedPort()));
+
         dynamoDb.start();
     }
 }
