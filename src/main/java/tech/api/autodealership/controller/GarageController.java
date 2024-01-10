@@ -3,8 +3,10 @@ package tech.api.autodealership.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.api.autodealership.entity.Garage;
+import tech.api.autodealership.exception.NotFoundException;
 import tech.api.autodealership.service.GarageService;
 
 import java.util.List;
@@ -28,5 +30,20 @@ public class GarageController {
     public List<Garage> findAll() {
         log.info("findAll - executed");
         return this.garageService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Garage> findAll(@PathVariable String id) throws NotFoundException {
+        log.info("findAll - executed");
+        return this.garageService
+                .findById(id)
+                .map(ResponseEntity::ok)
+                .orElseThrow(NotFoundException::new);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Garage> notFoundExceptionHandler(NotFoundException e) {
+        log.error("notFoundExceptionHandler - message: {}", e.getMessage());
+        return ResponseEntity.notFound().build();
     }
 }
