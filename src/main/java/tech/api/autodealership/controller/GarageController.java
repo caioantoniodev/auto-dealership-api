@@ -27,18 +27,32 @@ public class GarageController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Garage> findAll() {
         log.info("findAll - executed");
         return this.garageService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Garage> findAll(@PathVariable String id) throws NotFoundException {
-        log.info("findAll - executed");
+        log.info("findById - executed");
         return this.garageService
                 .findById(id)
                 .map(ResponseEntity::ok)
                 .orElseThrow(NotFoundException::new);
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> delete(@PathVariable String id) {
+        log.info("deleteById - executed");
+        return this.garageService.findById(id)
+                .map(Garage -> {
+                    this.garageService.delete(id);
+                    return ResponseEntity.noContent().build();
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @ExceptionHandler(NotFoundException.class)
