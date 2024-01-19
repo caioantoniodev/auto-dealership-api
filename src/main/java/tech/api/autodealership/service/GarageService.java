@@ -36,4 +36,12 @@ public class GarageService {
 
         return Optional.ofNullable(this.garageTable.getItem(key));
     }
+
+    public void delete(String garageId) {
+        this.garageTable.deleteItem(
+                Key.builder()
+                        .partitionValue(garageId)
+                        .build()
+        );
+    }
 }
