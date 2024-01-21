@@ -42,4 +42,15 @@ public class GarageServiceTest extends AbstractDynamoDbContainer {
         Assertions.assertNotNull(result);
         Assertions.assertEquals(1, result.size());
     }
+
+    @Test
+    void shouldDelete() {
+        var garage = GarageMock.any();
+        this.garageDynamoDbTable.putItem(garage);
+
+        garageService.delete(String.valueOf(garage.getId()));
+
+        var result = this.garageService.findById(String.valueOf(garage.getId()));
+        Assertions.assertTrue(result.isEmpty());
+    }
 }
