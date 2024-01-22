@@ -38,10 +38,10 @@ public class GarageService {
     }
 
     public void delete(String garageId) {
-        this.garageTable.deleteItem(
-                Key.builder()
-                        .partitionValue(garageId)
-                        .build()
-        );
+        var key = Key.builder()
+                .partitionValue(garageId)
+                .build();
+
+        this.garageTable.deleteItem(key);
     }
 }
