@@ -30,18 +30,20 @@ public class GarageService {
     }
 
     public Optional<Garage> findById(String garageId) {
-        var key = Key.builder()
-                .partitionValue(garageId)
-                .build();
+        var key = buildPartitionKey(garageId);
 
         return Optional.ofNullable(this.garageTable.getItem(key));
     }
 
     public void delete(String garageId) {
-        var key = Key.builder()
-                .partitionValue(garageId)
-                .build();
+        var key = buildPartitionKey(garageId);
 
         this.garageTable.deleteItem(key);
+    }
+
+    private static Key buildPartitionKey(String garageId) {
+        return Key.builder()
+                .partitionValue(garageId)
+                .build();
     }
 }
