@@ -55,6 +55,13 @@ public class GarageController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable String id, @RequestBody Garage garage) throws NotFoundException {
+        log.info("update - executed");
+        this.garageService.update(id, garage);
+    }
+
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Garage> notFoundExceptionHandler(NotFoundException e) {
         log.error("notFoundExceptionHandler - message: {}", e.getMessage());

@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
 import tech.api.autodealership.entity.Garage;
+import tech.api.autodealership.exception.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -45,5 +45,12 @@ public class GarageService {
         return Key.builder()
                 .partitionValue(garageId)
                 .build();
+    }
+
+    public void update(String id, Garage garage) throws NotFoundException {
+        var garageEntity = this.findById(id)
+                .orElseThrow(() -> new NotFoundException("Garage " + id + " not found"));
+
+        this.garageTable.updateItem(garageEntity.update(garage));
     }
 }
