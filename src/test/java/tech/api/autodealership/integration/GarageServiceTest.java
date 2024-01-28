@@ -8,7 +8,6 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import tech.api.autodealership.entity.Car;
 import tech.api.autodealership.entity.Garage;
 import tech.api.autodealership.entity.Vehicle;
-import tech.api.autodealership.exception.NotFoundException;
 import tech.api.autodealership.mock.GarageMock;
 import tech.api.autodealership.service.GarageService;
 
