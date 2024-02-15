@@ -18,14 +18,6 @@
 		<aws.java.sdk.version>2.16.1</aws.java.sdk.version>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>dynamodb-local</id>
-			<name>DynamoDB Local Release Repository</name>
-			<url>https://s3-us-west-2.amazonaws.com/dynamodb-local/release</url>
-		</repository>
-	</repositories>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -43,13 +35,8 @@
 			<scope>annotationProcessor</scope>
 		</dependency>
 		<dependency>
-			<groupId>software.amazon.awssdk</groupId>
-			<artifactId>dynamodb-enhanced</artifactId>
-			<version>2.12.0</version>
-		</dependency>
-		<dependency>
-			<groupId>software.amazon.awssdk</groupId>
-			<artifactId>dynamodb</artifactId>
+			<groupId>io.awspring.cloud</groupId>
+			<artifactId>spring-cloud-aws-starter-dynamodb</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.testcontainers</groupId>
@@ -66,9 +53,9 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>software.amazon.awssdk</groupId>
-				<artifactId>bom</artifactId>
-				<version>2.16.29</version>
+				<groupId>io.awspring.cloud</groupId>
+				<artifactId>spring-cloud-aws-dependencies</artifactId>
+				<version>3.0.1</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

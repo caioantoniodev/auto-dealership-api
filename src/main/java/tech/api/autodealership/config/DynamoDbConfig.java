@@ -36,22 +36,22 @@ public class DynamoDbConfig implements CommandLineRunner {
         this.entities = entities;
     }
 
-    public void createTables(DynamoDbClient ddb) {
+    public void createTables(DynamoDbClient dynamoDbClient) {
         this.entities.forEach(t -> {
             var tableRequest = DescribeTableRequest.builder()
                     .tableName(t.getTableName())
                     .build();
 
             try {
-                var response = ddb.describeTable(tableRequest);
+                var response = dynamoDbClient.describeTable(tableRequest);
                 log.info("Table [{}] existence verified", response.table().tableName());
 
             } catch (ResourceNotFoundException e) {
                 log.warn("Table [{}] not exists, creating...", t.getTableName());
 
-                ddb.createTable(t.getTableRequest());
+                dynamoDbClient.createTable(t.getTableRequest());
 
-                DynamoDbWaiter dbWaiter = ddb.waiter();
+                DynamoDbWaiter dbWaiter = dynamoDbClient.waiter();
 
                 var waiterResponse = dbWaiter.waitUntilTableExists(tableRequest);
 
@@ -79,21 +79,21 @@ public class DynamoDbConfig implements CommandLineRunner {
     @Bean
     public DynamoDbClient dynamoDbClient() {
         return DynamoDbClient.builder()
-                .region(Region.US_WEST_2)
+                .region(Region.SA_EAST_1)
                 .endpointOverride(this.dynamodbUri)
                 .build();
     }
 
     @Bean
-    public DynamoDbEnhancedClient dynamoDbEnhancedClient(DynamoDbClient ddb) {
+    public DynamoDbEnhancedClient dynamoDbEnhancedClient(DynamoDbClient dynamoDbClient) {
         return DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(ddb)
+                .dynamoDbClient(dynamoDbClient)
                 .build();
     }
 
     @Bean
-    public DynamoDbTable<Garage> carDynamoDbTable(DynamoDbEnhancedClient ddb) {
-        return ddb.table(Garage.config().getTableName(), TableSchema.fromBean(Garage.class));
+    public DynamoDbTable<Garage> carDynamoDbTable(DynamoDbEnhancedClient dynamoDbEnhancedClient) {
+        return dynamoDbEnhancedClient.table(Garage.config().getTableName(), TableSchema.fromBean(Garage.class));
     }
 
     @Override
