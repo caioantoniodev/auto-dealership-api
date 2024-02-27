@@ -23,7 +23,7 @@ public class GarageServiceTest extends AbstractDynamoDbContainer {
     private DynamoDbTable<Garage> garageDynamoDbTable;
 
     @Test
-    void findAll() {
+    void shouldBeReturnListOfGarages() {
         this.garageDynamoDbTable.putItem(GarageMock.any());
         var result = this.garageService.findAll();
         Assertions.assertNotNull(result);
