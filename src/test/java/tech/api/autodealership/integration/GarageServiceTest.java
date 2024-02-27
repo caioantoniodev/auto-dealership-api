@@ -31,7 +31,7 @@ public class GarageServiceTest extends AbstractDynamoDbContainer {
     }
 
     @Test
-    void findById() {
+    void shouldBeReturnGarageWhenFoundById() {
         var garage = GarageMock.any();
         this.garageDynamoDbTable.putItem(garage);
         var result = this.garageService.findById(String.valueOf(garage.getId()));
