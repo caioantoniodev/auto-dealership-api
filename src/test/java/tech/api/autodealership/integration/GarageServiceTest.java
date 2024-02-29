@@ -50,7 +50,7 @@ public class GarageServiceTest extends AbstractDynamoDbContainer {
     }
 
     @Test
-    void shouldDelete() {
+    void shouldDeleteGarage() {
         var garage = GarageMock.any();
         this.garageDynamoDbTable.putItem(garage);
 
