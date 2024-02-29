@@ -40,7 +40,7 @@ public class GarageServiceTest extends AbstractDynamoDbContainer {
     }
 
     @Test
-    void shouldBeCreate() {
+    void shouldBeCreateGarage() {
         var garage = GarageMock.any();
         this.garageService.save(garage);
 
