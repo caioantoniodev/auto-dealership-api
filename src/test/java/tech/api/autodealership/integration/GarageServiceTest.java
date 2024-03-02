@@ -62,7 +62,7 @@ public class GarageServiceTest extends AbstractDynamoDbContainer {
 
     @Test
     @SneakyThrows
-    void shouldBeUpdate() {
+    void shouldBeUpdateGarage() {
         var garage = GarageMock.any();
         this.garageDynamoDbTable.putItem(garage);
 
